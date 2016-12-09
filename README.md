@@ -21,6 +21,7 @@ GPL3
 # Thanks to:
 
 sub.salamdl.ir
+
 beautifulsoup4
 
  
