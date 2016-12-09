@@ -1,6 +1,6 @@
 # SubtitleGet.py
 
-a simple movie subtitle Downloader
+A simple movie subtitle downloader
 
 
 
@@ -21,7 +21,6 @@ GPL3
 # Thanks to:
 
 sub.salamdl.ir
-
-and beautifulsoup4
+beautifulsoup4
 
  
