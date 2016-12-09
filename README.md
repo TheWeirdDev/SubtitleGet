@@ -14,11 +14,11 @@ a simple movie subtitle Downloader
 
 This will download the subtitle and moves it to your `~/Downloads` directory 
 
-# Licence:
+# License:
 
 GPL3
 
- # Thanks to:
+# Thanks to:
 
 sub.salamdl.ir
 
