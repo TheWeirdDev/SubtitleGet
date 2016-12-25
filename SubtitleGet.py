@@ -116,29 +116,50 @@ def main():
         print(" ["+str(i+1)+"] " + subtitles[i])
         i -= 1
 
-    inp2 = input("\nChoose one of subtitles above (1 - %d): " % len(subtitles)).strip()
+    inp2 = input("\nChoose one or some of subtitles above (1 - %d) {ex: 2 or 1,2,3}: " % len(subtitles)).strip()
     
-    try:
-        inp2 = int(inp2)
-    except:
-        print("Error : Wrong input")
-        exit(1)
+    num_list = []
+    choice_list = inp2.split(',')
+    for item in choice_list:
+        try:
+            num = int(item)
+            num_list.append(int(item))
+        except:
+            print("Error : Wrong input")
+            exit(1)
 
-    if inp2 < 1 or inp2 > len(subtitles):
-        print("Error : Input out of range")
-        exit(1)
+        if num < 1 or num > len(subtitles):
+            print("Error : Input out of range")
+            exit(1)
+
+
 
     print("Downloading...")
 
-    link2 = "http://sub.salamdl.ir"  + sublinks[inp2 - 1]
-    name2 = subtitles[inp2 - 1]
+    index = 0
+    save_path = os.path.expanduser("~")+"/Downloads/SubtitleGet/"
+    if not os.path.isdir(save_path):
+        try:
+            os.mkdir(save_path)
+        except:
+            print("Failed to create directory :\n"+save_path)
+            exit(1)
+        
+    for num in num_list:
+        link2 = "http://sub.salamdl.ir"  + sublinks[num - 1]
+        name2 = subtitles[num - 1]
 
-    bs3 = bs4.BeautifulSoup(getPageContent(link2) , "html.parser")
-    downloadLink = "http://sub.salamdl.ir" +  bs3.find("a" , {"id":"downloadButton"})['href']
-    path = os.path.expanduser("~")+"/Downloads/" + name2 + ".zip" 
+        bs3 = bs4.BeautifulSoup(getPageContent(link2) , "html.parser")
+        downloadLink = "http://sub.salamdl.ir" +  bs3.find("a" , {"id":"downloadButton"})['href']
+        path = save_path + name2 + ".zip" 
     
-    downloadFile(downloadLink , path)
-    print("\n\nAll Done.\n saved to :" + path)
+        downloadFile(downloadLink , path)
+        index += 1
+        print("Downloaded {0} of {1}:".format(index , len(num_list)))
+        print(path)
+
+    
+    print("\n\nAll Done.\nSaved to : "+ save_path)
 
 
 if __name__ == "__main__":
