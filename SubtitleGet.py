@@ -116,10 +116,19 @@ def main():
         print(" ["+str(i+1)+"] " + subtitles[i])
         i -= 1
 
-    inp2 = input("\nChoose one or some of subtitles above (1 - %d) {ex: 2 or 1,2,3}: " % len(subtitles)).strip()
+    inp2 = input("\nChoose one or some of subtitles above (1 - %d) {ex: 2 or 1,2,3 or All}: " % len(subtitles)).strip()
     
+    choice_list = []
     num_list = []
-    choice_list = inp2.split(',')
+
+    if inp2 == 'All' or inp2 == 'all':
+        i = 0
+        while i < len(subtitles):
+            choice_list.append(str(i+1))
+            i+=1
+    else:
+        choice_list = inp2.split(',')
+
     for item in choice_list:
         try:
             num = int(item)
