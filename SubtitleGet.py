@@ -147,7 +147,9 @@ def main():
     print("Downloading...")
 
     index = 0
-    save_path = os.path.expanduser("~")+"/Downloads/SubtitleGet/"
+    sep=os.pathsep
+
+    save_path = os.path.expanduser("~")+sep+"Downloads"+sep+"SubtitleGet"+sep
     if not os.path.isdir(save_path):
         try:
             os.mkdir(save_path)
