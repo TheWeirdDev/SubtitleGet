@@ -187,7 +187,7 @@ def main():
         filemanager = "open"
         select = "-R"
 
-    subprocess.Popen([filemanager , select , save_path + html.unescape(subtitles[num_list[0]-1]) + ".zip"])
+    subprocess.Popen([filemanager , select , save_path])
 
 if __name__ == "__main__":
     main()
