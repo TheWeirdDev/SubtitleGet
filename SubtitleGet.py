@@ -147,7 +147,7 @@ def main():
     print("Downloading...")
 
     index = 0
-    sep=os.pathsep
+    sep=os.sep
 
     save_path = os.path.expanduser("~")+sep+"Downloads"+sep+"SubtitleGet"+sep
     if not os.path.isdir(save_path):
@@ -187,7 +187,7 @@ def main():
         filemanager = "open"
         select = "-R"
 
-    subprocess.Popen([filemanager , select , save_path])
+    subprocess.Popen([filemanager , select , save_path + html.unescape(subtitles[num_list[0]-1]) + ".zip"])
 
 if __name__ == "__main__":
     main()
