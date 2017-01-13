@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 ###########################
 #                         #
@@ -6,19 +6,20 @@
 #                         #
 ###########################
 
-import os , sys , requests , subprocess, platform , html
+import os , sys , subprocess, platform , html , zipfile
 try:
     import bs4
+    import requests
     import urllib
 except:
-    print("You need beautifulsoup4 & urllib to run this script")
-    print("Install them using 'pip install beautifulsoup4 urllib'")
+    print("You need beautifulsoup4 & urllib & requests to run this script")
+    print("Install them using 'pip install beautifulsoup4 urllib requests'")
     exit(1)
 
 #from random import randint
 
 def usage():
-    print("SubtitleGet.py version 1.0 by @Alireza6677 (Using 1.tisub.net).")
+    print("SubtitleGet.py version 1.1 by @Alireza6677 (Using 1.tisub.net).")
     print("Usage : ./SubtitleGet.py 'Movie/Serial Name'\n")
     exit(1)
 
@@ -157,6 +158,7 @@ def main():
             print("Failed to create directory :\n"+save_path)
             exit(1)
 
+    zips = []
     for num in num_list:
         link2 = "http://1.tisub.net/"  + sublinks[num - 1]
         name2 = subtitles[num - 1]
@@ -164,12 +166,27 @@ def main():
         bs3 = bs4.BeautifulSoup(getPageContent(link2) , "html.parser")
         downloadLink = "http://1.tisub.net" +  bs3.find("a" , {"id":"downloadButton"})['href']
         path = save_path + name2 + ".zip"
-
+        zips.append(name2 + '.zip')
         downloadFile(downloadLink , path)
         index += 1
         print("Downloaded {0} of {1}:".format(index , len(num_list)))
         print(path)
 
+    print("Extracting...")
+    select_file=""
+    for zip_file in zips:
+        zipref = zipfile.ZipFile(save_path + zip_file , 'r')
+        if len(zipref.namelist()) > 1:
+            path = save_path + zip_file[:-4]
+            os.mkdir(path)
+            zipref.extractall(path)
+            select_file=zip_file[:-4]+sep
+        else:
+            zipref.extractall(save_path)
+            select_file=zipref.namelist()[0]
+
+        zipref.close()
+        os.remove(save_path + zip_file)
 
     print("\n\nAll Done.\nSaved to : "+ save_path)
 
@@ -187,7 +204,8 @@ def main():
         filemanager = "open"
         select = "-R"
 
-    subprocess.Popen([filemanager , select , save_path + html.unescape(subtitles[num_list[0]-1]) + ".zip"])
+    subprocess.Popen([filemanager , select , save_path + select_file])
+    #+ html.unescape(subtitles[num_list[0]-1]) + ".zip"])
 
 if __name__ == "__main__":
     main()
