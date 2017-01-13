@@ -20,7 +20,7 @@ GPL3
 
 # Thanks to:
 
-sub.salamdl.ir
+1.tisub.net
 
 beautifulsoup4
 
