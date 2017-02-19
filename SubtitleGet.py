@@ -19,7 +19,7 @@ except:
 #from random import randint
 
 def usage():
-    print("SubtitleGet.py version 1.1 by @Alireza6677 (Using 1.tisub.net).")
+    print("SubtitleGet.py version 1.1 by @Alireza6677 (Using sub.salamdl.biz).")
     print("Usage : ./SubtitleGet.py 'Movie/Serial Name'\n")
     exit(1)
 
@@ -58,7 +58,7 @@ def main():
     else:
         usage()
 
-    page = getPageContent("http://1.tisub.net/subtitles/title?q=" + movie)
+    page = getPageContent("http://sub.salamdl.biz/subtitles/title?q=" + movie)
     bs = bs4.BeautifulSoup(page , "html.parser")
 
     items = bs.find_all("div" , {"class" : "title"})
@@ -92,7 +92,7 @@ def main():
     for i in range(3):
         print("\n")
 
-    link = "http://1.tisub.net/" + links[inp - 1] + "/farsi_persian"
+    link = "http://sub.salamdl.biz/" + links[inp - 1] + "/farsi_persian"
     bs2 = bs4.BeautifulSoup(getPageContent(link)  , "html.parser")
     h = bs2.find_all("span" , {"class" : "positive-icon"})
     for i in h:
@@ -160,11 +160,11 @@ def main():
 
     zips = []
     for num in num_list:
-        link2 = "http://1.tisub.net/"  + sublinks[num - 1]
+        link2 = "http://sub.salamdl.biz/"  + sublinks[num - 1]
         name2 = subtitles[num - 1]
 
         bs3 = bs4.BeautifulSoup(getPageContent(link2) , "html.parser")
-        downloadLink = "http://1.tisub.net" +  bs3.find("a" , {"id":"downloadButton"})['href']
+        downloadLink = "http://sub.salamdl.biz" +  bs3.find("a" , {"id":"downloadButton"})['href']
         path = save_path + name2 + ".zip"
         zips.append(name2 + '.zip')
         downloadFile(downloadLink , path)
